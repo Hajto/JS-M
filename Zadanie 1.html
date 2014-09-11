@@ -1,0 +1,41 @@
+<html>
+<head>
+    <script>
+        var vari,out;
+        vari=prompt("Podaj jakis string do zabawy.");
+        out=vari.length;
+            for(var i = 0; i < out; i++){
+                document.write(vari[i].fontsize(i%7));
+            }
+			document.write("</br>");
+			for(var i = 0; i < out; i++){
+                document.write(i%2==0?vari[i].fontsize(4):vari[i].fontsize(7));
+            }
+			document.write("</br>");
+			var tym = "", stick = true;
+			for( var i = 0; i < vari.length; i++){
+				if(i%3==0) stick = !stick;
+				if(stick) tym += vari[i].sub();
+					else tym += vari[i].sup();
+			}
+			document.write(tym + "</br>");
+
+			for(var i = 0; i < out; i++){
+                document.write(i%2==0?vari[i].fontcolor("red"):vari[i].fontcolor("blue"));
+            }
+			
+			
+			document.write("</br>");
+			// Do naprawy
+			var tym = "", stick = true, font = 7;
+			for( var i = 0; i < vari.length; i++){
+				tym += vari[i].fontsize(font);
+				if(stick) font--; else font++;
+				if(font==0 || font==7) stick = !stick;
+			}
+			document.write(tym + "</br>");
+    </script>
+</head>
+<body>
+</body>
+</html>
