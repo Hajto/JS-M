@@ -1,0 +1,42 @@
+<html>
+<head>
+    <script>
+        var zmienna, vari, out;
+        zmienna = prompt("Podaj liczbê do zbadania parzystoœci.");
+        vari = zmienna % 2
+        vari == 0 ? out = "Ta liczba jest parzysta" : out = "Ta liczba nie jest parzysta";
+        document.write(out);
+
+        out = 1;
+        for (var i = 1; i <= vari ; i++) {
+            out *= i;
+        }
+        document.write(out);
+
+        vari = prompt("Podaj liczbê do zbadania pierwszosci.");
+        var l = 2;
+        while (vari % l != 0) l++;
+        if (l == vari) console.log("pierwsza");
+        else console.log("Nie pierwsza");
+
+        out = 0;
+        vari = prompt("Podaj liczbê do zbadania parzystoœci.");
+        for (var i = 2; ;) {
+            var l = 2;
+            while (i % l != 0) l++;
+            if (l == i) {
+                console.log(i);
+                out++;
+            }
+            i++;
+            if (out == vari) break;
+        }
+
+
+
+
+    </script>
+</head>
+<body>
+</body>
+</html>
