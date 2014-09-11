@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>Zadanie 1</title>
+    <script>
+        var vari,out;
+		function nazwa(){
+		    y=20; // Bez var globabalna
+			alert(vari);
+		}
+		var funk = function(zm){
+		    return zm*zm;
+		}
+		
+		//setTimeout("alert(funk(10))", 1000);
+		//setTimeout("alert(funk(10))", 3000);
+		//var sss = setInterval("alert(funk(10))", 1000);
+    </script>
+</head>
+<body>
+    <div id="idek">
+        <div class="klasa"></div>
+        <div class="klasa"></div>
+        <div class="klasa"></div>
+        <div class="klasa"></div>
+        <div class="klasa"></div>
+        <div class="klasa"></div>
+        <div class="klasa"></div>
+        <div class="klasa"></div>
+        <div class="klasa"></div>
+        <div class="klasa"></div>
+    </div>
+    <img src="http://m.ocdn.eu/_m/1db217a13ba8f43dc42e2c831460268b,0,1.png" id="zmiana" />
+    <form name="costam">
+        <input name="inpucik" value="trololo" />
+    </form>
+    <button id="but">ok</button>
+    <script>
+        /*
+        setInterval(function(){
+            if (bol) txt = "jazda blablab"; else txt = "Jazda";
+            el.innerHTML = txt;
+            bol != bol;
+        }, 1000);
+        function zmianaobrazka() {
+            var ss = setInterval(function () {
+                obrazek = document.getElementById("zmiana");
+                if (bol) txt = "http://m.ocdn.eu/_m/1db217a13ba8f43dc42e2c831460268b,0,1.png"; else txt = "http://firma.interia.pl/i/media/interia_integral_small.png";
+                obrazek.src = txt;
+                bol != bol;
+            }, 2500);
+        }*/
+        var obrazek = document.getElementById("zmiana");
+        bol = true;
+        var szer = 400;
+            setInterval(function () {
+                if (bol) szer -= 10; else szer += 10;
+                obrazek.width = szer;
+                if(szer <= 0 || szer >=400) bol = !bol;
+            }, 100);
+        // Faluj¹ce ciekawy czy potrafisz
+        // Zmnieszaj¹cy siê i zwiêkszaj¹cy obrazek
+    </script>
+    
+</body>
+</html>
