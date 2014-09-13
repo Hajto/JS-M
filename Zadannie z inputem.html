@@ -1,0 +1,28 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title> A jednak mi się udało..</title>
+        <meta charset="utf-8" />
+	</head>
+	<body>
+		<form name="costam">
+			<input name="inpucik" id="cus" value="A jednak mi się udało....." />
+		</form>
+	<script>
+        var variabla = document.getElementById("cus").value;
+        var text="";
+        function scroll() {
+            variabla = document.getElementById("cus").value;
+            text = "";
+            for (var i = 0; i < variabla.length ; i++) {
+                if (i == 0) {
+                    text += variabla[variabla.length - 1];
+                }
+                if(i < variabla.length-1)text += variabla[i];
+            }
+            document.getElementById("cus").value = text;
+        }
+        setInterval(function () { scroll();}, 100);
+	</script>
+	</body>
+</html>
