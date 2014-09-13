@@ -15,9 +15,7 @@
             variabla = document.getElementById("cus").value;
             text = "";
             for (var i = 0; i < variabla.length ; i++) {
-                if (i == 0) {
-                    text += variabla[variabla.length - 1];
-                }
+                if (i == 0) text += variabla[variabla.length - 1];
                 if(i < variabla.length-1)text += variabla[i];
             }
             document.getElementById("cus").value = text;
