@@ -4,18 +4,16 @@
         var vari,out;
         vari=prompt("Podaj jakis string do zabawy.");
         out=vari.length;
-            for(var i = 0; i < out; i++){
-                document.write(vari[i].fontsize(Math.abs(7-i%14)));
-            }
-			document.write("</br>");
-			for(var i = 0; i < out; i++) document.write(vari[i].fontsize(Math.abs(i%7)));
-			document.write("</br>");
-			for(var i = 0; i < out; i++) document.write(i%2==0?vari[i].fontsize(4):vari[i].fontsize(7));
-			document.write("</br>");
-			for(var i = 0; i < out; i++) document.write(i%2==0?vari[i].fontcolor("red"):vari[i].fontcolor("blue"));
-			document.write("<br/>");
-			for(var i = 0; i < out; i++) document.write(i%6 > 2?vari[i].sub():vari[i].sup());
-			document.write("<br/>");
+	for(var i = 0; i < out; i++) document.write(vari[i].fontsize(Math.abs(7-i%14)));
+		document.write("</br>");
+	for(var i = 0; i < out; i++) document.write(vari[i].fontsize(Math.abs(i%7)));
+		document.write("</br>");
+	for(var i = 0; i < out; i++) document.write(i%2==0?vari[i].fontsize(4):vari[i].fontsize(7));
+		document.write("</br>");
+	for(var i = 0; i < out; i++) document.write(i%2==0?vari[i].fontcolor("red"):vari[i].fontcolor("blue"));
+		document.write("<br/>");
+	for(var i = 0; i < out; i++) document.write(i%6 > 2?vari[i].sub():vari[i].sup());
+		document.write("<br/>");
     </script>
 </head>
 <body>
