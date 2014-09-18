@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<head>
+    <title></title>
+</head>
+<body>
+    <img src="syf.jpg" id="polak" />
+    <script>
+        imidz = document.getElementById("polak");
+        var helper = 0;
+
+        setInterval(function () {
+
+            helper+=10;
+            imidz.style.webkitTransform = "rotate(" + helper + "deg)";
+        }, 50)
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="datka"></div>
+    <script>
+        var dzien = new Date();
+        var n = dzien.getDate();
+        var teraz = dzien.getMonth();
+        var rok = dzien.getFullYear();
+
+        var miesiac = ["Stycznia", "Lutego", "Marca", "Kwietnia", "Maja", "Czerwca", "Lipca", "Sierpnia", "Września", "Października", "Listopada", "Grudnia"];
+        var dzientygodnia = ["Pendziałek", "Wetorek", "Środa", "Czwarte", "Piątek", "sobota", "Niedziela"];
+
+        setInterval(function () {
+            var dzien = new Date();
+            document.getElementById("datka").innerHTML = "Dzisiaj jest " + dzientygodnia[dzien.getDay()] + ", " + n + " " + miesiac[dzien.getMonth()] + " " + rok + "<br>Godzina: " + dzien.toLocaleTimeString();
+        }, 1000);
+         
+        var gify = ["c0.gif", "c1.gif", "c2.gif", "c3.gif", "c4.gif", "c5.gif", "c6.gif", "c7.gif", "c9.gif", "colon.gif"];
+    </script>
+    
+</body>
+</html>
