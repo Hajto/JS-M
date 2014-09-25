@@ -5,21 +5,32 @@
 </head>
 <body>
     <div id="datka"></div>
+    <div id="godzina"></div>
     <script>
         var dzien = new Date();
         var n = dzien.getDate();
         var teraz = dzien.getMonth();
         var rok = dzien.getFullYear();
+        var temp="";
 
-        var miesiac = ["Stycznia", "Lutego", "Marca", "Kwietnia", "Maja", "Czerwca", "Lipca", "Sierpnia", "Września", "Października", "Listopada", "Grudnia"];
-        var dzientygodnia = ["Pendziałek", "Wetorek", "Środa", "Czwarte", "Piątek", "sobota", "Niedziela"];
+        var miesiac = ["Stycznia", "Lutego", "Marca", "Kwietnia", "Maja", "<img src='czerwca", "Lipca", "Sierpnia", "Września", "Października", "Listopada", "Grudnia"];
+        var dzientygodnia = ["Pendziałek", "Wetorek", "Środa", "<img src='czwarte", "Piątek", "sobota", "Niedziela"];
+
+        for (var i = 0; i < 8; i++) {
+            temp += '<img id="' + i + '" />';
+        }
+        document.getElementById("godzina").innerHTML = temp;
+        temp = "";
 
         setInterval(function () {
             var dzien = new Date();
+            temp = dzien.toLocaleTimeString();
             document.getElementById("datka").innerHTML = "Dzisiaj jest " + dzientygodnia[dzien.getDay()] + ", " + n + " " + miesiac[dzien.getMonth()] + " " + rok + "<br>Godzina: " + dzien.toLocaleTimeString();
+            for (var i = 0; i < 8; i++) {
+                document.getElementById(i).src = "godzina/" + (temp[i] == ":" ? "colon" : "c" + temp[i]) + ".gif";
+            }
         }, 1000);
          
-        var gify = ["c0.gif", "c1.gif", "c2.gif", "c3.gif", "c4.gif", "c5.gif", "c6.gif", "c7.gif", "c9.gif", "colon.gif"];
     </script>
     
 </body>

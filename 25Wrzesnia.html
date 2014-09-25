@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ciasteczka</title>
+    <script>
+        temp = new Date();
+
+        if (document.cookie.indexOf("imie")==-1) {
+            console.log("te");
+            document.cookie = "imie=" + prompt("Podaj imię");
+            document.cookie = "czas=" + temp.toLocaleTimeString();
+            document.write("Witaj " + document.cookie.split(";")[0].split("=")[1]);
+        } else {
+            document.write("Witaj "+document.cookie.split(";")[0].split("=")[1]+" Ostatnio odwiedziłeś nas"+document.cookie.split(";")[1].split("=")[1]);
+        }
+        
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

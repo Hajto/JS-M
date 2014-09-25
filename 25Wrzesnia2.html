@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        window.addEventListener("load", function () {
+            document.getElementById("divek").addEventListener("click", onClick, false);
+        }, false);
+
+        var obliczenie = false;
+        
+        function onClick(e){
+            console.log(e.target);
+            e.stopPropagation;
+            temp = document.getElementById("inputek").value;
+            if (obliczenie) {
+                temp = "";
+                obliczenie = false;
+            }
+            if (e.target.id != "divek" && e.target.id != "="){
+                if (e.target.id == "/" || e.target.id == "*" || e.target.id == "+" || e.target.id == "-") {
+                    if (temp[temp.length - 1] != e.target.id) temp += e.target.id;
+                } else {
+                    temp += e.target.id;
+                }
+            }
+            if (e.target.id == "=") {
+                temp = eval(temp);
+                obliczenie = true;
+            }
+            document.getElementById("inputek").value = temp
+        }
+        function onInput() {
+            var temp = document.getElementById("inputek").value;
+            if (!(temp[temp.length - 1] == "/" || temp[temp.length - 1] == "*" || temp[temp.length - 1] == "+" || temp[temp.length - 1] == "-") || temp[temp.length - 1] == temp[temp.length - 2]) {
+                console.log(true);
+                if (isNaN(temp[temp.length - 1])) temp = temp.substr(0, temp.length - 1);
+                document.getElementById("inputek").value = temp;
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="inputek" oninput="onInput();"/>
+    <div id="divek">
+        <table>
+            <tr><td><button id="7">7</button></td><td><button id="8">8</button></td><td><button id="9">9</button></td><td><button id="/">/</button></td></tr>
+            <tr><td><button id="4">4</button></td><td><button id="5">5</button></td><td><button id="6">6</button></td><td><button id="*">*</button></td></tr>
+            <tr><td><button id="1">1</button></td><td><button id="2">2</button></td><td><button id="3">3</button></td><td><button id="-">-</button></td></tr>
+            <tr><td><button id="0">0</button></td><td></td><td><button id="+">+</button></td><td><button id="=">=</button></td></tr>
+        </table>
+    </div>
+</body>
+</html>
