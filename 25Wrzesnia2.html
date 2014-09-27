@@ -8,6 +8,17 @@
         }, false);
 
         var obliczenie = false;
+        window.addEventListener("keypress", onEnter, false);
+        function onEnter(e) {
+            console.log(e.keyCode);
+            if (e.keyCode == 13) {
+                document.getElementById("inputek").value = licz(document.getElementById("inputek").value);
+                console.log(e.keyCode);
+            }
+        }
+        function licz(valueOfInput) {
+            return eval(valueOfInput);
+        }
         
         function onClick(e){
             console.log(e.target);
@@ -25,8 +36,10 @@
                 }
             }
             if (e.target.id == "=") {
-                temp = eval(temp);
-                obliczenie = true;
+                temp  = licz(temp);
+                if (document.getElementById("nadpisywanie").selectedIndex == 0) {
+                    obliczenie = true;
+                }
             }
             document.getElementById("inputek").value = temp
         }
@@ -50,6 +63,13 @@
             <tr><td><button id="1">1</button></td><td><button id="2">2</button></td><td><button id="3">3</button></td><td><button id="-">-</button></td></tr>
             <tr><td><button id="0">0</button></td><td></td><td><button id="+">+</button></td><td><button id="=">=</button></td></tr>
         </table>
+
+        
     </div>
+    Nadpisywanie wyniku.
+    <select id="nadpisywanie">
+        <option>Tak</option>
+        <option>Nie</option>
+    </select>
 </body>
 </html>
