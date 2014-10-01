@@ -35,16 +35,22 @@
         var obrazek = document.getElementById("zmiana");
         obrazek.src = "syf.jpg";
         bol = true;
+        reverse = false;
         var szer = 400;
         obrazek.height = 200;
         setInterval(function () {
             if (bol) szer -= 10; else szer += 10;
             obrazek.width = szer;
-            if (szer <= 0 || szer >= 400) {
-                bol = !bol;
+            if (szer == 0 || szer==400) {
+                console.log(szer);
                 if (szer == 0) {
-                    if (bol) obrazek.src = "syf.jpg"; else obrazek.src = "syf2.jpg";
+                    console.log(bol);
+                    if (reverse == true) obrazek.src = "syf.jpg";
+                    else obrazek.src = "syf2.jpg";
+                    reverse = !reverse;
+                    console.log(obrazek.src);
                 }
+                bol = !bol;
             }
            
         }, 20);

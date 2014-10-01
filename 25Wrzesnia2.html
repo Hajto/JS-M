@@ -23,15 +23,20 @@
         function onClick(e){
             e.stopPropagation;
             temp = document.getElementById("inputek").value;
-            if (obliczenie) {
-                temp = "";
-                obliczenie = false;
-            }
+            
             if (e.target.id != "divek" && e.target.id != "="){
                 if (e.target.id == "/" || e.target.id == "*" || e.target.id == "+" || e.target.id == "-") {
-                    if (temp[temp.length - 1] != e.target.id) temp += e.target.id;
+                    if (temp[temp.length - 1] != e.target.id) {
+                        temp += e.target.id;
+                        obliczenie = false;
+                    }
                 } else {
+                    if (obliczenie) {
+                        temp = "";
+                        obliczenie = false;
+                    }
                     temp += e.target.id;
+                    
                 }
             }
             if (e.target.id == "=") {
