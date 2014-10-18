@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        window.addEventListener("load", onLoad, false);
+        document.addEventListener("contextmenu", function(e){
+            e.preventDefault();
+        }, false);
+
+        var main;
+        var counter = 0;
+        function onLoad() {
+            main = document.getElementById("divek");
+            zajacPop();
+        }
+        function zajacPop() {
+            var small = document.createElement("div");
+            main.appendChild(small);
+            small.style.width = "100px";
+            small.style.height = "100px";
+            small.style.position = "absolute";
+            small.style.top = Math.floor((Math.random() * window.innerHeight-100) + 1) + "px";
+            small.style.left = Math.floor((Math.random() * window.innerWidth-100) + 1) + "px";
+            small.addEventListener("click", onClick, false);
+            small.innerHTML = '<img src="zajac.png" style="width:100px; height:100px;" ondragstart="return false;event.stopPropagation();"/>';
+           
+            }
+        
+        function onClick() {
+            main.innerHTML = "";
+            counter++;
+            document.getElementById("counter").innerHTML = counter;
+            var temp = 2000 - counter * 100 < 0 ? 10 : 2000 - counter * 100;
+            console.log(temp);
+            setTimeout(zajacPop ,temp);
+        }
+        function preventer(e) {
+            e.preventDefault();
+        }
+    </script>
+    <style>
+        html, body {
+            cursor: url(celownik.gif),auto;
+        }
+    </style>
+</head>
+<body ondragstart="" ondrag="">
+    <div style="position:absolute;top:0px;left:0px;" id="counter"></div>
+    <div id="divek"></div>
+</body>
+</html>

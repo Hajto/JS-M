@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Saper</title>
+    <script>
+        //Zmienne gry
+        var gameArray = [];
+        var clicksy = 0;
+        var tempBomby;
+        //Tablica wynikow
+        var tablicaWynikow;
+        //Zmienne wielkosci
+        var szerokosc = 0;
+        var wysokosc = 0;
+        var bomby = 0;
+        //Wyglad diva main
+        var div_h = window.innerHeight * 0.60;
+        var div_w = div_h;
+        //local storage
+        var mojlocal;
+        //dzwieki
+        var boom = new Audio("boom.wav");
+        var win = new Audio("yay.wav");
+
+        window.addEventListener("load", onLoad);
+        function onLoad() {
+            document.getElementById("gol").addEventListener("click", startGame);
+            storage();
+        }
+        function startGame() {
+            if (danePobrano()) {
+                fillArray();
+                zniszczPlansze();
+                addBomby(bomby);
+                formatDiv();
+                setBombCounter(bomby);
+                zerujClicksy();
+                czasLeci();
+                storage();
+                
+            }
+        }
+        function compareSecondColumn(a, b) {
+            if (a[1] === b[1]) {
+                return 0;
+            }
+            else {
+                return (a[1] < b[1]) ? -1 : 1;
+            }
+        }
+        function storage() {
+            mojlocal = window.localStorage;
+            var temp = "Tablia wynikow dla rozgrywki 3x3, 5 bomb! <br/>";
+            if (mojlocal.getItem("wyniki") == null || mojlocal.getItem("wyniki") == undefined) {
+                temp += "Brak wynikow do wyświetlenia";
+                tablicaWynikow = [];
+            } else {
+                tablicaWynikow = JSON.parse(mojlocal.getItem("wyniki"));
+                temp += "<table>";
+                for (var i = 0; i < tablicaWynikow.length; i++) {
+                    temp += "<tr><td> Gracz " + tablicaWynikow[i][0] + "</td><td>" + tablicaWynikow[i][1] + " s</td></tr>";
+                }
+                temp += "</table>";
+            }
+            document.getElementById("wyniki").innerHTML = temp;
+
+        }
+        function danePobrano() {
+            wysokosc = document.getElementById("wys").value;
+            if (wysokosc < 0 || wysokosc == null || wysokosc == undefined || wysokosc == "") {
+                wysokosc = 0;
+                alert("Wysokosc musi byc wieksza od zera !");
+                return false;
+            }
+            szerokosc = document.getElementById("szer").value;
+            if (szerokosc < 0 || szerokosc == null || szerokosc == undefined || szerokosc == "") {
+                szerokosc = 0;
+                alert("Szerokosc musi byc wieksza od zera !");
+                return false;
+            }
+            bomby = document.getElementById("min").value;
+            tempBomby = bomby;
+            if (bomby < 0 || bomby == null || bomby == undefined || bomby == "") {
+                bomby = 0;
+                alert("Liczba bomb muusi byc wieksza od zera !");
+                return false;
+            }
+            if (bomby > wysokosc * szerokosc)
+                return false;
+            return true;
+        }
+        function zerujClicksy() {
+            clicksy = 0;
+        }
+        function wygranaprzezclicksy() {
+            if (clicksy == wysokosc * szerokosc - bomby) {
+                alert("Wygrales/as! Zajelo ci to " + czas + " sekund/y.");
+                terminateCzas();
+                if (szerokosc == 3 && wysokosc == 3 && bomby == 5) {
+                    tablicaWynikow.push([prompt("Podaj nick do wpisania do tabeli wynikow."), czas]);
+                    mojlocal.setItem("wyniki", JSON.stringify(tablicaWynikow));
+                    location.reload();
+                }
+                hopieTuBylaBomba();
+                win.play();
+            }
+        }
+        function terminateCzas() {
+            clearInterval(czasLeciIZaraz);
+            
+        }
+        function zniszczPlansze() {
+            document.getElementById("holder").innerHTML = "";
+            document.getElementById("czas").innerHTML = "";
+            document.getElementById("bombs").innerHTML = "";
+        }
+        function czasLeci() {
+            var divCzas = document.getElementById("czas");
+            czas = 0;
+            czasLeciIZaraz = setInterval(function () {
+                czas += 1 / 100;
+                czas = Math.round(czas * 100) / 100;
+                divCzas.innerHTML = "Grasz już " + czas + " sekund/y.";
+            }, 10);
+        }
+        function fillArray() {
+            gameArray = [];
+            for (var i = 0; i < szerokosc; i++) {
+                gameArray[i] = []
+                for (var j = 0; j < wysokosc; j++)
+                    gameArray[i][j] = 0;
+            }
+        }
+        function addBomby(tempBomby) {
+            while (tempBomby > 0) {
+                var temp_wys = Math.floor((Math.random() * wysokosc) + 0);
+                var temp_szer = Math.floor((Math.random() * szerokosc) + 0);
+                if (temp_szer < szerokosc && temp_wys < wysokosc) {
+                    if (gameArray[temp_szer][temp_wys] == 0) {
+                        gameArray[temp_szer][temp_wys] = 1;
+                        tempBomby--;
+                    }
+                }
+            }
+        }
+        function formatDiv() {
+            var main = document.getElementById("holder");
+            main.style.height = div_h + "px";
+            main.style.width = div_w + "px";
+            addSmallDivs();
+        }
+        function addSmallDivs() {
+            var main = document.getElementById("holder");
+            for (var i = 0; i < szerokosc; i++) {
+                for (var j = 0; j < wysokosc; j++) {
+                    var small = document.createElement("div");
+                    main.appendChild(small);
+                    small.style.width = div_w / szerokosc + "px";
+                    small.style.height = div_h / wysokosc + "px";
+                    small.style.position = "absolute";
+                    small.style.top = div_w / wysokosc * j + "px";
+                    small.style.left = div_w / szerokosc * i + "px";
+                    small.style.border = "solid 1px";
+                    small.style.background = "gray";
+                    small.addEventListener("click", checkIfDed);
+                    small.addEventListener("contextmenu", onRightClick);
+                    small.id = j +","+i;
+                    small.setAttribute("pierwsza", j);
+                    small.setAttribute("druga",i)
+                }
+            }
+        }
+        function checkNeighbour(x,y){
+            var temp_counter_of_stupid_mines_that_i_personally_hate = 0;
+            for (var i = -1; i <= 1; i+=2) {
+                if (x + i >= 0 && x + i < szerokosc)
+                    if (gameArray[x + i][y] == 1) temp_counter_of_stupid_mines_that_i_personally_hate++;
+                if (y + i >= 0 && y + i < wysokosc)
+                    if (gameArray[x][y + i] == 1) temp_counter_of_stupid_mines_that_i_personally_hate++;
+                if (x + i >= 0 && y + i >= 0 && x + i < szerokosc && y + i < wysokosc)
+                    if (gameArray[x + i][y + i] == 1) temp_counter_of_stupid_mines_that_i_personally_hate++;
+                if (x + i >= 0 && y - i >= 0 && x + i < szerokosc && y - i < wysokosc)
+                    if (gameArray[x + i][y - i] == 1) temp_counter_of_stupid_mines_that_i_personally_hate++;
+            }
+            return temp_counter_of_stupid_mines_that_i_personally_hate;
+        }
+        function checkIfDed(e) {
+            console.log(e);
+            div = e.target;
+            divID = e.target.id.split(",");
+            if (gameArray[parseInt(divID[0])][parseInt(divID[1])] == 0) {
+                if (checkNeighbour(parseInt(divID[0]), parseInt(divID[1])) > 0)
+                    div.innerHTML = checkNeighbour(parseInt(divID[0]), parseInt(divID[1]));
+                //recursiveBlank(parseInt(div.id[0]), parseInt(div.id[1]));
+                div.style.background = "white";
+                div.removeEventListener("click", checkIfDed);
+                clicksy++;
+                wygranaprzezclicksy();
+            } else {
+                alert("Zdechles! Zaraz cie wywali w kosmos... Boom!");
+                terminateCzas();
+                boom.play();
+                hopieTuBylaBomba();
+            }
+        }
+        function setBombCounter(bombCounter) {
+            var bombyDiv = document.getElementById("bombs");
+            bombyDiv.innerHTML = "Pozostałe bomby: " + bombCounter;
+        }
+        function hopieTuBylaBomba() {
+            for(var i =0; i < szerokosc;i++)
+                for (var j = 0; j < wysokosc; j++) {
+                    var tempDivId = document.getElementById(j + "," + i);
+                    tempDivId.style.background = "white";
+                    if (gameArray[j][i] == 1) tempDivId.innerHTML = "(*)";
+                    else tempDivId.innerHTML = checkNeighbour(j,i);
+                    tempDivId.removeEventListener("click", checkIfDed);
+                    tempDivId.removeEventListener("contextmenu", onRightClick);
+                }
+        }
+        function onRightClick(e) {
+            console.log(e);
+            e.preventDefault();
+            div = e.target;
+            if(e.target.style.background != "white")
+            if (div.innerHTML == "") {
+                div.innerHTML = "F";
+                tempBomby--;
+                setBombCounter(tempBomby);
+            } else {
+                div.innerHTML = "";
+                tempBomby++;
+                setBombCounter(tempBomby);
+            }
+        }
+    </script>
+</head>
+<body>
+    <center><h1>Saper</h1></center>
+    <center>
+    <div id="dane" style="margin: 0 auto;">
+        <span> Wysokosc: <input id="wys" /></span><br />
+        <span> Szerokosc: <input id="szer" /></span><br />
+        <span> Liczba min: <input id="min" /></span> <br />
+        <button id="gol">Stwórz plansze!</button>
+        <div id="bombs"> </div>
+        <div id="czas"> </div>
+        <div id="wyniki" style="width:20%;position:absolute;top:0px;right:0px;"></div>
+    </div>
+    <div id="holder" style="position:relative;"></div>
+</center>
+</body>
+</html>
