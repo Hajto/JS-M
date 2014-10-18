@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Arcanoid</title>
+    <script>
+        // Jakub Hajto kl3ia
+        window.addEventListener("load", onLoad);
+        //Zmienne konfiguracyjne
+        var liczbaKlepek = 9;
+        var liczbaWarstwKlepek = 4;
+        var lifeCounter = 3;
+        function onLoad() {
+            addDivs();
+            document.getElementById("holder").addEventListener("mouseover", poruszPaletka, false);
+            document.getElementById("holder").addEventListener("click", pilkaStart, false);
+        }
+        function pilkaStart() {
+            document.getElementById("holder").removeEventListener("click", pilkaStart);
+            pileczka = document.getElementById("pilka");
+            paletka = document.getElementById("paletka");
+            pilkaX = 200;
+            pilkaY = 150;
+            var kierunekX = true;
+            var kierunekY = true;
+            dosmierci = setInterval(function () {
+                if (pilkaX >= 450) {
+                    kierunekX = false;
+                    console.log("debug");
+                }else if(pilkaX <=0){
+                    kierunekX = true;
+                    console.log("debug2");
+                }
+                if (pilkaY >= 500) {
+                    kierunekY = false;
+                    console.log("debug");
+                } else if (pilkaY<= 50 && parseInt(paletka.style.left) - 100 < parseInt(pileczka.style.left) &&parseInt(paletka.style.left) + 100 > parseInt(pileczka.style.left)) {
+                    kierunekY = true;
+                    console.log("debug2");
+                }
+                if (pilkaY < 0) {
+                    if (lifeCounter > 0) {
+                        alert("tracisz ¿ycie, kliknij na pole gry aby zaczac grac dalej");
+                        lifeCounter--;
+                        document.getElementById("life").innerHTML = "Liczba ¿yc =" + lifeCounter;
+                        clearInterval(dosmierci);
+                        pileczka.style.left = "200px";
+                        pileczka.style.right = "200px";
+                        document.getElementById("holder").addEventListener("click", pilkaStart, false);
+                        
+                    } else {
+                        alert("Przegra³eœ");
+                        clearInterval(dosmierci);
+                    }
+                    
+                }
+
+                if (kierunekX == true) {
+                    pilkaX+=10;
+                } else {
+                    pilkaX-=10;
+                }
+                if (kierunekY == true) {
+                    pilkaY += 10;
+                } else {
+                    pilkaY -= 10;
+                }
+                setXY(pilkaX, pilkaY);
+            }, 20);
+        }
+        function setXY(x, y) {
+            pileczka.style.left = x + "px";
+            pileczka.style.bottom = y + "px";
+        }
+        function poruszPaletka(e) {
+            var clientXTemp = e.clientX;
+            document.getElementById("holder").removeEventListener("mouseover",poruszPaletka);
+            document.getElementById("paletka").style.left = clientXTemp-100 + "px";
+            document.getElementById("holder").addEventListener("mouseover", poruszPaletka, false);
+        }
+        function addDivs() {
+            var temp = "";
+            for(var i=0; i < liczbaKlepek ; i++)
+                for (var j = 0; j < liczbaWarstwKlepek ; j++) {
+                    temp += "<div id='" + i + "," + j + "' style='width:50px; border:solid 1px; height:20px; background:red; position: absolute; top: " + j * 50 + "px; right:" + i * 50 + "px;'></div>";
+                }
+            temp += "<div id='paletka' style='height:40px; width:200px;border:solid; position: absolute;top:450px; background:black;'></div>" + '<div id="pilka" style="width:50px; height:50px; background:black; position:absolute; bottom:200px; left:200px;">X</div>';
+            document.getElementById("holder").innerHTML = temp;
+        }
+    </script>
+</head>
+<body>
+    <div id="holder" style="width:450px; height:500px; position:relative; border:solid; padding:1px; overflow:hidden;">
+
+        
+    </div>
+    <div id="life">Liczba ¿yc = 3</div>
+</body>
+</html>
