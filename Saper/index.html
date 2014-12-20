@@ -56,6 +56,7 @@
                 tablicaWynikow = [];
             } else {
                 tablicaWynikow = JSON.parse(mojlocal.getItem("wyniki"));
+                tablicaWynikow.sort(compareSecondColumn);
                 temp += "<table>";
                 for (var i = 0; i < tablicaWynikow.length; i++) {
                     temp += "<tr><td> Gracz " + tablicaWynikow[i][0] + "</td><td>" + tablicaWynikow[i][1] + " s</td></tr>";

@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <script>
+        // <- 37
+        // -> 39
+        // ^ 38
+        // \/ 40
+        var inter = 0;
+        var inter2 = 0;
+        var tablicaZaarcia = [];
+        var counterId = 0;
+        var toggle = true;
+        function init() {
+            /*
+            appendDiv("jeden","LoremIpsum");
+            document.getElementById("jeden").addEventListener("mouseover", mouseOver, false);
+            document.getElementById("jeden").addEventListener("mouseout", mouseOut, false);
+            appendDiv("dwa","LoremIpsum");
+            document.getElementById("dwa").addEventListener("mouseover", mouseOverTemp, false);
+            appendDiv("tempik", "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum <button onclick='onClick()'>Click</button>")*/
+            document.body.addEventListener("keydown", move, false);
+            document.body.addEventListener("keyup", stop, false);
+            document.getElementById("ruchacz").style.position = "absolute";
+            document.getElementById("ruchacz").style.left = "0px";
+            document.getElementById("ruchacz").style.bottom = "0px";
+            document.getElementById("ruchacz").style.width = "50px";
+            document.getElementById("ruchacz").style.height = "50px";
+            document.getElementById("ruchacz").style.background = "black";
+        }
+        function move(e) {
+            e.which ? temp = e.which : temp = e.keycode;
+            var ruszanyRuchacz = document.getElementById("ruchacz");
+            if (inter == 0)
+                switch (temp) {
+                    case 37:
+                        //ruszanyRuchacz.style.left = parseInt(ruszanyRuchacz.style.left) - 1 + "px";
+                        inter = setInterval(function () {
+                            if (parseInt(ruszanyRuchacz.style.left) > 0)
+                                ruszanyRuchacz.style.left = parseInt(ruszanyRuchacz.style.left) - 1 + "px";
+                        }, 1);
+                        break;
+                    case 39:
+                        //ruszanyRuchacz.style.left = parseInt(ruszanyRuchacz.style.left) + 1 + "px";
+                        inter = setInterval(function () {
+                            if (parseInt(ruszanyRuchacz.style.left) + parseInt(ruszanyRuchacz.style.width) < 500)
+                                ruszanyRuchacz.style.left = parseInt(ruszanyRuchacz.style.left) + 1 + "px";
+                        }, 1);
+                        break;
+                }
+            if (inter2 == 0)
+                switch (temp) {
+                    case 38:
+                        //ruszanyRuchacz.style.bottom = parseInt(ruszanyRuchacz.style.bottom) + 1 + "px";
+                        inter2 = setInterval(function () {
+                            if(parseInt(ruszanyRuchacz.style.bottom) + parseInt(ruszanyRuchacz.style.height) < 500)
+                            ruszanyRuchacz.style.bottom = parseInt(ruszanyRuchacz.style.bottom) + 1 + "px";
+                        }, 1)
+                        break;
+                    case 40:
+                        //ruszanyRuchacz.style.bottom = parseInt(ruszanyRuchacz.style.bottom) - 1 + "px";
+                        inter2 = setInterval(function () {
+                            if (parseInt(ruszanyRuchacz.style.bottom) > 0)
+                            ruszanyRuchacz.style.bottom = parseInt(ruszanyRuchacz.style.bottom) - 1 + "px";
+                        }, 1)
+                        console.log("działa w prawo");
+                        break;
+                }
+        }
+        function stop(e) {
+            var temp2 = e.which ? e.which : e.keycode;
+            if (temp2 == 37 || temp2 == 39)
+                if (inter != 0) {
+                    clearInterval(inter);
+                    inter = 0;
+                }
+            if (temp2 == 38 || temp2 == 40)
+                if (inter2 != 0) {
+                    clearInterval(inter2);
+                    inter2 = 0;
+                }
+            console.log("stop");
+        }
+        function zarcieDlaWonza(xowa,yowa,trutka,wielkosc) {
+            this.y = yowa;
+            this.x = xowa;
+            this.truejacyPytajnik = trutka;
+            this.wartoscOdzywcza = wielkosc;
+            this.id = (tablicaZaarcia.length > 0 ? tablicaZaarcia[tablicaZaarcia.length - 1].id + 1 : 0);
+            this.zjedzony = false;
+            this.zjedz = function() {
+                this.zjedzony = true;
+                document.body.removeChild(document.getElementById(this.id));
+                document.getElementById("liczbaPunktow").innerHTML = parseInt(this) + 1;
+            }
+        }
+        function dodajZarcie(zarcie) {
+            tablicaZaarcia.push(zarcie);
+            var div = document.createElement("div");
+            div.style.width = zarcie.wartoscOdzywcza * 10 + "px";
+            div.style.height = div.style.width;
+            div.style.position = "absolute";
+            div.style.borderRadius = "50%";
+            div.style.bottom = zarcie.y + "px";
+            div.style.left = zarcie.x + "px";
+            div.style.background = "#ff0000";
+            div.id = zarcie.id;
+            document.body.appendChild(div);
+        }
+        /*
+        function appendDiv(string, zawartosc) {
+            var div = document.createElement("div");
+            div.id = string;
+            div.innerHTML = zawartosc;
+            document.body.appendChild(div);
+        }
+        function mouseOver() {
+            appendDiv("temp", "lorem ipsum");
+        }
+        function mouseOverTemp() {
+            var temp = counterId.toString();
+            appendDiv(temp, "lorem ipsum");
+            setTimeout(function () {
+                document.body.removeChild(document.getElementById(temp));
+            }, 1000);
+            counterId++;
+        }
+        function mouseOut() {
+            document.body.removeChild(document.getElementById("temp"));
+        }
+        function onClick() {
+            if (toggle) {
+                document.getElementById("tempik").innerHTML = "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum <button onclick='onClick()'>Click</button>";
+                toggle = !toggle;
+            } else {
+                document.getElementById("tempik").innerHTML = "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum <button onclick='onClick()'>Click</button>";
+                toggle = !toggle;
+            }
+        }*/
+    </script>
+</head>
+<body onload="init()">
+    <div id="plansza" style="border:solid 1px; width:500px; height:500px; margin:0 auto; position:relative;">
+        <div id="ruchacz">:p</div>
+    </div>
+    <div style="margin:0 auto;"> Liczba pkt: <span id="liczbaPunktow"></span></div>
+</body>
+</html>

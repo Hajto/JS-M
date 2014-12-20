@@ -1,79 +1,45 @@
-var month;
-				var dzien = new Date();
-				var n = dzien.getDate();
-				var teraz = dzien.getMonth();
-				var rok = dzien.getFullYear();
-						 
-				switch (teraz) {
-					case 0:
-							month = "Stycznia";
-							break;
-					case 1:
-							month = "Lutego";
-							break;
-					case 2:
-							month = "Marca";
-							break;
-					case 3:
-							month = "Kwietnia";
-							break;
-					case 4:
-							month = "Maja";
-							break;
-					case 5:
-							month = "Czerwca";
-							break;
-					case 6:
-							month = "Lipca";
-							break;
-					case 7:
-							month = "Sierpnia";
-							break;
-					case 8:
-							month = "Wrzeúnia";
-							break;
-					case 9:
-							month = "Paüdziernika";
-							break;
-					case 10:
-							month = " Listopada";
-							break;
-					case 11:
-							month = " Grudnia";
-							break;
-							}
-							
-							
-							
-							    function przesuwanie() {
-        //move the image in pixel
-        var move = -15;
-        
-        //zoom percentage, 1.2 =120%
-        var zoom = 1.5;
-        //On mouse over those thumbnail
-        $j('.item').hover(function() {
-            
-            //Set the width and height according to the zoom percentage
-            width = $j('.item').width() * zoom;
-            height = $j('.item').height() * zoom;
-            
-            //Move and zoom the image
-            $j(this).find('img').stop(false,true).animate({'width':width, 'height':height, 'top':move, 'left':move}, {duration:200});
-            
-            //Display the caption
-            $j(this).find('div.caption').stop(false,true).fadeIn(200);
-        },
-        function() {
-            //Reset the image
-            $j(this).find('img').stop(false,true).animate({'width':$j('.item').width(), 'height':$j('.item').height(), 'top':'0', 'left':'0'}, {duration:100});    
-            //Hide the caption
-            $j(this).find('div.caption').stop(false,true).fadeOut(200);
-        });
-    };
+	<link rel="stylesheet" href="http://www.landing.krakweb.pl/html/templates/hajto-landing-page/style.css" type="text/css" />
+	<link rel="stylesheet" href="http://www.landing.krakweb.pl/html/templates/hajto-landing-page/obrazki.css" type="text/css" />
+	<link rel="stylesheet" href="http://www.landing.krakweb.pl/engine/jsscripts/lightbox2/css/lightbox.css" type="text/css" media="screen" />
+	
+	<link href='http://fonts.googleapis.com/css?family=Armata&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+	
+	
+	<link rel="shortcut icon" href="http://www.landing.krakweb.pl/html/templates/hajto-landing-page/images/favicon.ico" type="image/x-icon" />
+	
+	
+	
+	<!-- nivo slideshow -->
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+   		var $j = jQuery.noConflict(true);
+    </script>
+    <!-- nivo slideshow end-->
+    
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
+	<script type="text/javascript" src="http://www.landing.krakweb.pl/engine/jsscripts/lightbox2/js/lightbox.js"></script>
+	<script type="text/javascript" src="http://www.landing.krakweb.pl/html/templates/hajto-landing-page/skrypty.js"></script>
+	<script type="text/javascript">
+	var windowSizedSection = 1 // 0 = fixed sizes
+	
+	function enableResizing(helper){
+		windowSizedSection = helper;
+	}
 
 	
-	function fast_scroll(){
+function wysrodkuj(){
+	
+	$j('#content1_inside').center();
+	$j('#content2_inside').center();
+	$j('#content3_inside').center();
+	$j('#content4_inside').center();
+	$j('#content5_inside').center();
+}
+		
+function fast_scroll(){
 	$j('a').each(function(){
 			$j(this).on('click', function(){
 				scrollToAnchor($j(this).attr('title'));
@@ -175,3 +141,136 @@ function scroll() {
    
 };
 }); 
+
+
+	</script>
+</head>
+
+<!--============================================================================== -->
+
+<body>
+
+<div id="srodkujacy">	
+	<div id="content_box"><div class="tabs">
+	<div id="tab1" class="active"><a  title="content1">Kat 1</a></div>
+	<div id="tab2" class="inactive"><a title="content2">Kat 2</a></div>
+	<div id="tab3" class="inactive"><a title="content3">Kat 3</a></div>
+	<div id="tab4" class="inactive"><a title="content4">Kat 4</a></div>
+	<div id="tab5" class="inactive"><a title="content5"> Kat 5</a></div>
+</div>
+
+
+<div id="tabContent1" class="tabContent">
+<a class="brake" name="content1"></a>
+
+	<div id="content1_inside">
+		<h2>Kat 1</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		
+	</div>
+</div>
+
+
+<div id="tabContent2" class="tabContent">
+<a class="brake" name="content2"></a>
+	<div id="content2_inside">
+		<h2>Kat 2</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	</div>
+</div>
+
+
+<div id="tabContent3" class="tabContent">
+<a class="brake" name="content3"></a>
+	<div id="content3_inside">
+		<h2>Kat 3</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<div class="icons">
+			<a class="twitter" href=""></a>
+			<a class="dribbble" href=""></a>
+			<a class="rss" href=""></a>
+			<a class="pinterest" href=""></a>
+			<a class="digg" href=""></a>
+			<a class="flickr" href=""></a>
+			<a class="forrst" href=""></a>
+			<a class="vimeo" href=""></a>
+			<a class="reddit" href=""></a>
+			<a class="linkedin" href=""></a>
+			<a class="facebook" href=""></a>
+			<a class="paypal" href=""></a>
+			<a class="stumbleupon" href=""></a>
+			<a class="email" href=""></a>
+			<a class="deviantart" href=""></a>
+			<a class="netvibes" href=""></a>
+			<a class="yahoo" href=""></a>
+			<a class="github" href=""></a>
+			<a class="addthis" href=""></a>
+			<a class="behance" href=""></a>
+			<a class="blogger" href=""></a>
+			<a class="slashdot" href=""></a>
+			<a class="technorati" href=""></a>
+			<a class="googleplus" href=""></a>
+			<a class="apple" href=""></a>
+			<a class="myspace" href=""></a>
+			<a class="sharethis" href=""></a>
+			<a class="yelp" href=""></a>
+			<a class="delicious" href=""></a>
+			<a class="lastfm" href=""></a>
+			<a class="youtube" href=""></a>
+			<a class="skype" href=""></a>
+			<a class="tumblr" href=""></a>
+			<a class="aim" href=""></a>
+			<a class="google" href=""></a>
+		</div>
+	</div>
+</div>	
+
+
+<div id="tabContent4" class="tabContent">
+<a class="brake" name="content4"></a>
+	<div id="content4_inside">
+		<h2>Kat 4</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<div id="wrapper">
+				 <div class="item">
+				<a href="#"><img src="http://www.landing.krakweb.pl/html/templates/hajto-landing-page/img/01.jpg" alt="title" title="" width="200px" height="150px"/></a>
+				<div class="caption">
+					<a href="">Coú</a>
+					<p>Lorem ipsem coú tam buuuka</p>
+				</div>
+			</div>
+			<div class="item">
+				<a href="#"><img src="http://www.landing.krakweb.pl/html/templates/hajto-landing-page/img/01.jpg" alt="title" title="" width="200px" height="150px"/></a>
+				<div class="caption">
+					<a href="">Coú</a>
+					<p>Lorem ipsem coú tam buuuka</p>
+				</div>
+			</div>
+			<div class="item">
+				<a href="#"><img src="http://www.landing.krakweb.pl/html/templates/hajto-landing-page/img/01.jpg" alt="title" title="" width="200px" height="150px"/></a>
+				<div class="caption">
+					<a href="">Coú</a>
+					<p>Lorem ipsem coú tam buuuka</p>
+				</div>
+			</div>
+			</div>
+	</div>
+</div>	
+
+
+<div id="tabContent5" class="tabContent">
+<a class="brake" name="content5"></a>
+	<div id="content5_inside">
+		<h2>Kat 5</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	</div>
+</div>	
+
+</div>
+</div>
+	
+</body>
+</html>

@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        //Obszar gry
+        var szerokosc = "0px";
+        var wysokosc = "0px";
+
+        //Zmienne strzelania
+        var magazynek = 5;
+        var wystrzelonych = magazynek;
+        var reload = 5000;
+
+        //audio
+        var currentSound = "boom.mp3";
+        window.addEventListener("load", onLoad, false);
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        }, false);
+
+        var main;
+        var counter = 0;
+        function onLoad() {
+            main = document.getElementById("holder");
+            main.addEventListener("click",pudlo,false);
+            szerokosc = parseInt(document.getElementById("holder").style.width);
+            wysokosc = parseInt(document.getElementById("holder").style.height);
+            zajacPop();
+        }
+        function pudlo() {
+            if (wystrzelonych > 0) {
+                wystrzelonych--;
+                refreshCounters();
+                play(currentSound);
+            }
+            else
+                reloadGun();
+        }
+        function play(string) {
+            new Audio(string).play();
+        }
+        function zajacPop() {
+            if (typeof intervalZajac != 'undefined')
+                clearInterval(intervalZajac);
+            var small = document.createElement("div");
+            main.appendChild(small);
+            small.style.width = "100px";
+            small.style.height = "100px";
+            small.style.position = "absolute";
+            small.addEventListener("click", onClick, false);
+            small.style.backgroundImage = "url('zajac.png')";
+            small.style.backgroundSize = "cover";
+            small.id = "zajac";
+            small.style.top = randomVertical() + "px";
+            small.style.left = randomHorizontal() + "px";
+            intervalZajac = setInterval(function () {
+                small.style.top = randomVertical() + "px";
+                small.style.left = randomHorizontal() + "px";
+            }, 1000);
+        }
+        function pigRol() {
+            if (typeof intervalPig != 'undefined')
+                clearInterval(intervalPig);
+            var small = document.createElement("div");
+            main.appendChild(small);
+            small.style.width = "100px";
+            small.style.height = "100px";
+            small.style.position = "absolute";
+            small.addEventListener("click", onClick, false);
+            small.style.backgroundImage = "url('swinie14.gif')";
+            small.style.backgroundSize = "cover";
+            small.style.top = randomVertical() + "px";
+            small.style.left = randomHorizontal() + "px";
+            small.id = "chrumchrum";
+            var kierunek = true;
+            var tempOfPig = parseInt(small.style.left);
+            intervalPig = setInterval(function () {
+                if (tempOfPig < 0)
+                    kierunek = true;
+                if (tempOfPig > szerokosc - 100)
+                    kierunek = false;
+
+                if (kierunek)
+                    tempOfPig += 5;
+                else
+                    tempOfPig -= 5;
+
+                small.style.left = tempOfPig + "px";
+            }, 10);
+        }
+        function refreshCounters() {
+            document.getElementById("counter").innerHTML = "Liczba punktów wynosi: " + counter + "<br>Naboje " + wystrzelonych + "/" + magazynek;
+        }
+        function reloadGun() {
+            reloading = false;
+            if (reloading == false) {
+                var tempForMonitoring = 0;
+                if (document.getElementById("zajac") != null)
+                    document.getElementById("zajac").removeEventListener("click", onClick);
+                if (document.getElementById("chrumchrum") != null)
+                    document.getElementById("chrumchrum").removeEventListener("click", onClick);
+                reloadingMonitringInterval = setInterval(function () {
+                    tempForMonitoring++;
+                    document.getElementById("reloadMonitor").innerHTML = "Pozostały czas do końca przeładowania" + (reload / 10 - tempForMonitoring) / 100 + " sekund";
+                    if ((reload / 10 - tempForMonitoring) / 100 < 0) {
+                        document.getElementById("reloadMonitor").innerHTML = "";
+                        clearInterval(reloadingMonitringInterval);
+                    }
+                }, 10);
+                reloading = true;
+                reloading = setTimeout(function () {
+                    if (document.getElementById("zajac") != null)
+                        document.getElementById("zajac").addEventListener("click", onClick, false);
+                    if (document.getElementById("chrumchrum") != null)
+                        document.getElementById("chrumchrum").addEventListener("click", onClick, false);
+                    wystrzelonych = magazynek;
+                    refreshCounters();
+                    reloading = false;
+                }, reload);
+            }
+            else {
+                console.log("WiP");
+            }
+            
+        }
+        function onClick(e) {
+            e.stopPropagation();
+            if (wystrzelonych > 0) {
+                main.innerHTML = "";
+                counter++;
+                wystrzelonych--;
+                play(currentSound);
+                refreshCounters();
+                var temp = 2000 - counter * 100 < 0 ? 10 : 2000 - counter * 100;
+                console.log(temp);
+                setTimeout((Math.floor(Math.random()*100 % 2) == 0 ? zajacPop : pigRol), temp);
+            }
+            else {
+                reloadGun();
+            }
+        }
+        function preventer(e) {
+            e.preventDefault();
+        }
+        function randomVertical() {
+            var temp = Math.floor((Math.random() * wysokosc - 100) + 1);
+            if (temp > 0 && temp < wysokosc - 200)
+                return temp;
+            else return randomVertical();
+        }
+        function randomHorizontal() {
+            var temp = Math.floor((Math.random() * szerokosc - 100) + 1);
+            if (temp > 0 && temp < szerokosc - 200)
+                return temp;
+            else return randomHorizontal();
+        }
+        function bazookaCheck() {
+            setTimeout(function () { document.addEventListener("click", boom, false);}, 1000)
+            
+        }
+        function boom() {
+            alert("Wygrałeś!");
+            play("boom.wav");
+        }
+    </script>
+    <style>
+        #holder{
+            background-image: url('farm.png');
+            background-size: cover;
+        }
+        body{
+            cursor: url('cross.png') 16 16, auto;
+        }
+    </style>
+</head>
+<body ondragstart="" ondrag="">
+    <center><div id="holder" style="width:800px; height: 500px; border: solid 1px; position:relative;"> </div></center>
+    <div style="position:absolute;top:0px;left:0px;" id="counter"></div>
+    <div style="position:absolute;top:40px;left:0px;" id="reloadMonitor"></div>
+    <div id="divek"></div>
+    <button onclick="bazookaCheck()">Get the Bazooka!</button>
+</body>
+</html>
